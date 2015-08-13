@@ -1,0 +1,42 @@
+<html>
+<head>
+
+</head>
+
+
+<body>
+	<script type="text/javascript">
+	//能js调用java代码就用js调用java，因为java调用js代码耗时比js调用java代码要耗时的多
+	//但是因为安全问题，在Android4.2中(如果应用的android:targetSdkVersion数值为17+)JS只能访问带有 @JavascriptInterface注解的Java函数。因此如果你的开发版本比较高，需要在被调用的函数前加上@JavascriptInterface注解。
+	console.log("demo has run");
+		function callString() {      
+			console.log("invoke callString ");
+			window.nbs.log("callJava");            //这些是绑定在nbs接口上的
+		}
+		function callStringTwoArgs() {
+			console.log("invoke callStringTwoArgs");
+			nbs.log("callJava", "arguments");
+		}
+		function callInt() {
+			console.log("invoke callInt");
+			var a=666;
+			nbs.log(a);
+		}
+		function callStringThreeArgs() {
+			console.log("invoke callStringThreeArgs");
+			var a=666;
+			nbs.log("aa","bb","cc");
+		}
+	</script>
+	<input type="submit" value="callString" onclick="window.nbs.log()"> </input >
+	<input type="submit" value="callString" onclick="callString()"> </input >
+	</br>
+	<input type="submit" value="callStringTwoArgs" onclick="callStringTwoArgs()"></input >
+	</br>
+	<input type="submit" value="callInt" onclick="callInt()"></input >
+	</br>
+	<input type="submit" value="callStringThreeArgs" onclick="callStringThreeArgs"></input >
+	</br>
+
+</body>
+</html>

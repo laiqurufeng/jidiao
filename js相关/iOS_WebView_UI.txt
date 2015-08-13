@@ -1,0 +1,187 @@
+Jul 28 12:14:51 yang-kaide-iPhone NBSWebViewTest[1258] <Warning>: (cn.com.networkbench.NBSWebViewTest)--NBSDebugLog: postDataToServer:postUIData={
+	    classifiedComponents =     (
+	                (
+	                        {
+	                name = "MobileViewSummary/NULL/ViewLoading";
+	                parent = "MobileView/Controller/ViewController#loading";
+	            },
+	                        (
+	                1,
+	                9,
+	                9,
+	                9,
+	                9,
+	                81
+	            )
+	        ),
+	                (
+	                        {
+	                name = "MobileViewSummary/NULL/ViewLayout";
+	                parent = "MobileView/Controller/ViewController#loading";
+	            },
+	                        (
+	                4,
+	                4,
+	                4,
+	                1,
+	                1,
+	                4
+	            )
+	        ),
+	                (
+	                        {
+	                name = "MobileViewSummary/NULL/Storage";
+	                parent = "MobileView/Controller/ViewController#loading";
+	            },
+	                        (
+	                0,
+	                0,
+	                0,
+	                0,
+	                0,
+	                0
+	            )
+	        ),
+	                (
+	                        {
+	                name = "MobileViewSummary/NULL/Image";
+	                parent = "MobileView/Controller/ViewController#loading";
+	            },
+	                        (
+	                0,
+	                0,
+	                0,
+	                0,
+	                0,
+	                0
+	            )
+	        ),
+	                (
+	                        {
+	                name = "MobileViewSummary/NULL/Json";
+	                parent = "MobileView/Controller/ViewController#loading";
+	            },
+	                        (
+	                0,
+	                0,
+	                0,
+	                0,
+	                0,
+	                0
+	            )
+	        ),
+	                (
+	                        {
+	                name = "MobileViewSummary/NULL/Network";
+	                parent = "MobileView/Controller/ViewController#loading";
+	            },
+	                        (
+	                0,
+	                0,
+	                0,
+	                0,
+	                0,
+	                0
+	            )
+	        ),
+	                (
+	                        {
+	                name = "MobileViewSummary/NULL/Background";
+	                parent = "MobileView/Controller/ViewController#loading";
+	            },
+	                        (
+	                0,
+	                0,
+	                0,
+	                0,
+	                0,
+	                0
+	            )
+	        ),
+	                (
+	                        {
+	                name = "MobileViewSummary/NULL/Other";
+	                parent = "MobileView/Controller/ViewController#loading";
+	            },
+	                        (
+	                0,
+	                0,
+	                0,
+	                0,
+	                0,
+	                0
+	            )
+	        )
+	    );
+	    components =     (
+	                (
+	                        {
+	                name = "Method Other/ViewController/Other";
+	                parent = "MobileView/Controller/ViewController#loading";
+	            },
+	                        (
+	                3,
+	                1323,
+	                1323,
+	                1244,
+	                0,
+	                1553777
+	            )
+	        ),
+	                (
+	                        {
+	                name = "Method ViewLayout/ViewController/viewWillLayoutSubviews";
+	                parent = "MobileView/Controller/ViewController#loading";
+	            },
+	                        (
+	                4,
+	                4,
+	                4,
+	                1,
+	                1,
+	                4
+	            )
+	        ),
+	                (
+	                        {
+	                name = "Method ViewLoading/ViewController/viewDidLoad";
+	                parent = "MobileView/Controller/ViewController#loading";
+	            },
+	                        (
+	                1,
+	                9,
+	                9,
+	                9,
+	                9,
+	                81
+	            )
+	        )
+	    );
+	    dev =     (
+	        "",
+	        1,
+	        "",
+	        0,
+	        0
+	    );
+	    general = "<null>";
+	    interval = 30;
+	    timeFrom = 1438056857;
+	    timeTo = 1438056857;
+	    type = uiPerfMetrics;
+	    views =     (
+	                (
+	                        {
+	                name = "MobileView/Controller/ViewController#loading";
+	            },
+	                        (
+	                3,
+	                1336,
+	                1336,
+	                1246,
+	                9,
+	                1559158
+	            )
+	        )
+	    );
+	}
