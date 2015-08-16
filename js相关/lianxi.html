@@ -1,0 +1,77 @@
+<<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>各种整理</title>
+</head>
+<body>
+	
+	<script type="text/javascript">
+		//array的slice函数
+		 var slice=[].slice;
+		 console.log(slice);
+		 //函数的变量值不足的情况下.
+		 function fun1(a,b,c){
+		 	console.log("fun1:"+a+","+b+","+c);
+		 	console.trace();
+		 }
+		 fun1("a","b");             //这个打印a,b,undefined, 都可以正确的调用
+		 //函数的变量值超过的情况下:
+		 fun1("a","b","c","d");  //这个打印a,b,c
+		 //一个对象直接变成数组?
+		var  obj ={
+		 	name :"anqi",
+		 	age   : 26
+		 }
+		 var arr=[11,12];
+		 console.log([obj].concat(arr));   //concat连接2个数组
+		 console.log('[obj] is'+obj);       //[obj]看起来很奇怪,其实很好理解. 因为定义数组就是var arr=[1,2] 这里相当于var arr=[obj];
+
+		 var x1=true && fun1("x1");              //fun1会执行
+		 var x2=false && fun1("x2");         //fun1 不会执行.&&操作符可以做if(true)的作用. 如果左边为真才执行
+
+		 var fun2=(function(){
+		 	fun1(),arr.push(33)          //逗号运算符.  这里这么写是可以的.
+		 })();
+		 console.log(arr);
+
+		 console.log(window[0]);    //这样是可以的 window[0]=undefined
+
+		 var flag=!1; //等价于 var flag =false;
+		if(!flag){
+			console.log("xx"+flag);
+		}
+		//-------------------------------
+		var fun3= function(){
+			{
+				var a=1,b=2,c=3 //var什么的应该算一个函数
+
+			}
+			setTimeout(function(){
+				console.log("a:"+a+",b:"+b);
+
+			}, 0);
+		}();
+		//{}是一个对象还是一个函数呢?
+		var test={
+			//var a="11",b=12           //var test={}是正确的.但var test={var a=11}是错误的
+
+		}
+		console.log(typeof(test));
+		console.log(typeof test);
+
+		//---------------------- long转换
+		var now= new Date().getTime();
+		console.log(now);
+		console.log(now.toString());
+		//----------------- function(t) //怎么知道这个t是不是传了/
+		function fun6(t){
+			if(typeof  t ==="undefined"){                //利用这个可以判断t是否传入.也可以利用arguments.length判断.
+				console.log("fun6 argument t undefined");
+			}
+		};
+		fun6();
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>XmlrequestTest</title>
+</head>
+<body>
+	<p id='test-response-text'>点击没变的文本</p>
+	<br/>
+	<p id='test-jsonp'>点击没变的文本</p>
+
+
+	<br/>
+	<input type="submit" value="getPrice" onclick ="getPrice()"></input>
+	<br/>
+	<input type="submit" value="xmlCall" onclick ="getData()"></input>
+
+
+	<script type="text/javascript">
+		//...生成request.
+		function getData(){
+			var request;
+			if (window.XMLHttpRequest) {
+			    request = new XMLHttpRequest();
+			} else {
+			    request = new ActiveXObject('Microsoft.XMLHTTP');
+			}
+			//注册request的回调函数
+			request.onreadystatechange = function () { // 状态发生变化时，函数被回调
+			    if (request.readyState === 4) { // 成功完成
+			        // 判断响应结果:
+			        if (request.status === 200) {
+			            // 成功，通过responseText拿到响应的文本:
+			            return success(request.responseText);
+			        } else {
+			            // 失败，根据响应码判断失败原因:
+			            return fail(request.status);
+			        }
+			    } else {
+			        // HTTP请求还在继续...
+			    }
+			}
+		    request.open('GET', 'http://www.sina.com');
+			request.send();
+
+			function success(text) {
+			    var textarea = document.getElementById('test-response-text');
+			    textarea.value = text;
+			}
+
+			function fail(code) {
+			    var textarea = document.getElementById('test-response-text');
+			    textarea.value = 'Error code: ' + code;
+			}
+		}
+	
+
+
+
+		function refreshPrice(data) {
+	    var p = document.getElementById('test-jsonp');
+	    p.innerHTML = '当前价格：' +
+	        data['0000001'].name +': ' + 
+	        data['0000001'].price + '；' +
+	        data['1399001'].name + ': ' +
+	        data['1399001'].price;
+		}
+		function getPrice() {
+		    var
+		        js = document.createElement('script'),
+		        head = document.getElementsByTagName('head')[0];
+		    	js.src = 'http://api.money.126.net/data/feed/0000001,1399001?callback=refreshPrice';
+		    head.appendChild(js);
+		}
+	</script>
+
+</body>
+</html>
