@@ -1,0 +1,33 @@
+<project name="test" default="test">
+    <macrodef name="print">
+        <attribute name="text"/>
+        <element name="telement" optional="yes" />
+        <sequential>
+            <echo>@{text}</echo>
+        </sequential>
+    </macrodef>
+     
+    <macrodef name="testing">
+       <attribute name="v" default="NOT SET"/>
+       <!-- 这里就相当于提供了一个接口 -->
+       <element name="some-tasks" optional="yse"/>
+       <sequential>
+          <echo>v is @{v}</echo>
+          <some-tasks/>
+       </sequential>
+    </macrodef>
+     
+    <testing v="This is v">
+       <some-tasks>
+          <echo>this is a test</echo>
+       </some-tasks>
+    </testing>
+     
+    <target name="telement">
+        <print text="telement"/>
+    </target>
+     
+    <target name="test">
+        <print text="print test"/>
+    </target>
+</project>

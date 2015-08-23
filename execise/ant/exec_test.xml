@@ -1,0 +1,17 @@
+<project default ="test_exec">
+	<target name="test_exec">
+		<!-- <exec  executable="cmd">
+			<arg value="/c" />
+			<arg value="ant.bat"/>
+			<arg value="-v"/>
+		</exec> -->
+		<mycro/>
+	</target>
+<macrodef name="mycro">
+	<sequential>
+		<myexec executable="cmd">
+		
+		</myexec>
+	</sequential>
+	</macrodef>
+</project>	

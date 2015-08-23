@@ -1,0 +1,21 @@
+<project name="macro" >
+	<macrodef name ="dealEcho">
+		<attribute name="tarName"/>
+		<element name="acfun" optional="no"/>  <!-- 这里就相当于提供了一个接口 -->  
+		<sequential>
+			<echo message="build with-@{tarName} now...."/>
+			<acfun/>
+		</sequential>
+	</macrodef>
+	<!--<target name="macro_test">
+		<dealEcho tarName="test1"/>
+		<dealEcho tarName="test2"/>
+	</target>
+-->
+
+	<dealEcho  tarName="my_acfun">
+		<acfun>
+			<echo message="print acfun"/>
+		</acfun>
+	</dealEcho>
+</project>
