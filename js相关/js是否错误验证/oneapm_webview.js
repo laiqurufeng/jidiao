@@ -90,7 +90,8 @@ function oneapm_error_catch(g) {
 	a.push(l);
 	a.push(k);
 	a.push(f);
-	window.OneapmWebViewProxy.onError(JSON.stringify(a))
+	window.OneapmWebViewProxy.onError(JSON.stringify(a));
+	window.nbsAgent.onError(JSON.stringify(a))
 }
 window.addEventListener("error", oneapm_error_catch, false);        //window增加了error的监听器
 
@@ -98,6 +99,7 @@ function resourceTiming(c) {
 	var n = "getEntriesByType" in window.performance;
 	if (!n) {
 		window.OneapmWebViewProxy.androidLog("error", "html5 feature not support getEntriesByType function  ,will not collect webview data .");
+		window.nbsAgent.androidLog("error", "html5 feature not support getEntriesByType function  ,will not collect webview data .");
 		return
 	}
 	var b = window.performance.getEntriesByType("resource");
@@ -138,7 +140,8 @@ function resourceTiming(c) {
 				"sum_of_squares": 0 + "",
 				"total": o + ""
 			};
-			window.OneapmWebViewProxy.addImageMetric(JSON.stringify(a) + "", c + "")
+			window.OneapmWebViewProxy.addImageMetric(JSON.stringify(a) + "", c + "");
+			window.nbsAgent.addImageMetric(JSON.stringify(a) + "", c + "")
 		} else {
 			var a = {
 				"count": l.length + "",
@@ -148,7 +151,8 @@ function resourceTiming(c) {
 				"sum_of_squares": 0 + "",
 				"total": o + ""
 			};
-			window.OneapmWebViewProxy.addImageMetric(JSON.stringify(a) + "", c + "")
+			window.OneapmWebViewProxy.addImageMetric(JSON.stringify(a) + "", c + "");
+			window.nbsAgent.addImageMetric(JSON.stringify(a) + "", c + "");
 		}
 	}
 	if (g.length != 0) {
@@ -161,7 +165,8 @@ function resourceTiming(c) {
 				"sum_of_squares": 0 + "",
 				"total": k + ""
 			};
-			window.OneapmWebViewProxy.addScriptMetric(JSON.stringify(j) + "", c + "")
+			window.OneapmWebViewProxy.addScriptMetric(JSON.stringify(j) + "", c + "");
+			window.nbsAgent.addScriptMetric(JSON.stringify(j) + "", c + "");
 		} else {
 			var j = {
 				"count": g.length - 1 + "",
@@ -171,7 +176,8 @@ function resourceTiming(c) {
 				"sum_of_squares": 0 + "",
 				"total": k + ""
 			};
-			window.OneapmWebViewProxy.addScriptMetric(JSON.stringify(j) + "", c + "")
+			window.OneapmWebViewProxy.addScriptMetric(JSON.stringify(j) + "", c + "");
+			window.nbsAgent.addScriptMetric(JSON.stringify(j) + "", c + "")
 		}
 	}
 	if (h.length != 0) {
@@ -184,7 +190,8 @@ function resourceTiming(c) {
 				"sum_of_squares": 0 + "",
 				"total": f
 			} + "";
-			window.OneapmWebViewProxy.addLinkMetric(JSON.stringify(m) + "", c + "")
+			window.OneapmWebViewProxy.addLinkMetric(JSON.stringify(m) + "", c + "");
+			window.nbsAgent.addLinkMetric(JSON.stringify(m) + "", c + "")
 		} else {
 			var m = {
 				"count": h.length - 1 + "",
@@ -194,7 +201,8 @@ function resourceTiming(c) {
 				"sum_of_squares": 0 + "",
 				"total": f + ""
 			};
-			window.OneapmWebViewProxy.addLinkMetric(JSON.stringify(m) + "", c + "")
+			window.OneapmWebViewProxy.addLinkMetric(JSON.stringify(m) + "", c + "");
+			window.nbsAgent.addLinkMetric(JSON.stringify(m) + "", c + "");
 		}
 	}
 }
@@ -204,6 +212,7 @@ function _oneapm_ivoke_java_commit_data(a) {
 	setTimeout(function() {
 		if (!window.performance.timing || !window.performance.timing.navigationStart) {  //html5的属性才支持
 			window.OneapmWebViewProxy.androidLog("error", "html5 feature not support ,will not collect webview data .");
+			window.nbsAgent.androidLog("error", "html5 feature not support ,will not collect webview data .");
 			return
 		}
 		var g = window.performance;
@@ -229,8 +238,26 @@ function _oneapm_ivoke_java_commit_data(a) {
 		window.OneapmWebViewProxy.addWebViewSummaryMetric(JSON.stringify({
 			"singe_webview_summary": f + ""
 		}), _oneapm_webview_1_ + "");
+
+
+		window.nbsAgent.addDomainLookupTime(JSON.stringify({
+			"addDomainLookupTime": c + ""
+		}), _oneapm_webview_1_ + "");
+		window.nbsAgent.addTotalWebViewSummary(JSON.stringify({
+			"total_webview_summary": f + ""
+		}));
+		window.nbsAgent.addSingleWebViewSummary(JSON.stringify({
+			"singe_webview_summary": f + ""
+		}), _oneapm_webview_1_ + "");
+		window.nbsAgent.addWebViewSummaryMetric(JSON.stringify({
+			"singe_webview_summary": f + ""
+		}), _oneapm_webview_1_ + "");
+
+
+
 		var b = getTimings();
-		window.OneapmWebViewProxy.fetchPageContent(JSON.stringify(b[0]), _oneapm_webview_1_ + "")
+		window.OneapmWebViewProxy.fetchPageContent(JSON.stringify(b[0]), _oneapm_webview_1_ + "");
+		window.nbsAgent.fetchPageContent(JSON.stringify(b[0]), _oneapm_webview_1_ + "");
 	}, 300)
 }
 window._oneapm_ivoke_java_commit_data = _oneapm_ivoke_java_commit_data;

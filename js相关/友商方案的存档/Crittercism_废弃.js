@@ -1,9 +1,23 @@
-var fun = function CrittercismClass() {
-
+function CrittercismClass() {
     var errorCallback = null;
     var platform = null;
-    console.log("init process");
+    /*
+     * Stack trace stuff starts here
+     */
 
+    // Domain Public by Eric Wendelin http://eriwen.com/ (2008)
+    //                  Luke Smith http://lucassmith.name/ (2008)
+    //                  Loic Dachary <loic@dachary.org> (2008)
+    //                  Johan Euphrosine <proppy@aminche.com> (2008)
+    //                  Oyvind Sean Kinsey http://kinsey.no/blog (2010)
+    //                  Victor Homyakov <victor-homyakov@users.sourceforge.net> (2010)
+    /**
+     * Main function giving a function stack trace with a forced or passed in Error
+     *
+     * @cfg {Error} e The error to create a stacktrace from (optional)
+     * @cfg {Boolean} guess If we should try to resolve the names of anonymous functions
+     * @return {Array} of Strings with functions, lines, files, and arguments where possible
+     */
     function printStackTrace(options) {
         options = options || {guess: true};
         var ex = options.e || null, guess = !!options.guess;
@@ -291,7 +305,7 @@ var fun = function CrittercismClass() {
         }
     }
 
-    instrumentOnError = function instrumentOnError(options) {
+    this.instrumentOnError = function instrumentOnError(options) {
         console.log("instrument on error");
         var oldErrorHandler = window.onerror;
         viewMonitor = function () {
@@ -301,9 +315,9 @@ var fun = function CrittercismClass() {
             }
             setTimeout(function () {
                 console.log("setTimeout");
-                var loadTime = window.performance.timing.loadEventEnd - window.performance.timing.navigationStart,
-                    domainLookupTime = window.performance.timing.domainLookupEnd - window.performance.timing.domainLookupStart,
-                    serverTime = window.performance.timing.domComplete - window.performance.timing.domLoading,
+                var loadTime          = window.performance.timing.loadEventEnd - window.performance.timing.navigationStart,
+                    domainLookupTime  = window.performance.timing.domainLookupEnd - window.performance.timing.domainLookupStart,
+                    serverTime        = window.performance.timing.domComplete - window.performance.timing.domLoading,
                     domProcessingTime = window.performance.timing.responseEnd - window.performance.timing.responseStart;
                 _crttr.logView(currentView, loadTime, domainLookupTime, domProcessingTime, serverTime, host, null)
             }, 0)
@@ -325,15 +339,15 @@ var fun = function CrittercismClass() {
         platform = options.platform;
     }
 
-    httpMonitor = function monitorHttp() {
+    this.httpMonitor = function monitorHttp() {
         var oldOpen = XMLHttpRequest.prototype.open,
             oldSend = XMLHttpRequest.prototype.send;
 
         //method, uri, async, user, pass
         XMLHttpRequest.prototype.open = function (method, uri, async, user, pass) {
             this._method = method,
-                this._url = uri,
-                oldOpen.call(this, method, uri, async, user, pass)
+            this._url = uri,
+            oldOpen.call(this, method, uri, async, user, pass)
         },
 
             XMLHttpRequest.prototype.send = function (vData) {
@@ -357,6 +371,9 @@ var fun = function CrittercismClass() {
                 oldSend.call(this, vData);
             }
     }
+};
 
-    instrumentOnError({errorCallback: function(errorMsg, stackStr) {_crttr.logError(errorMsg, stackStr);},platform:"android"})
-}();
+console.log("error.js init")
+Crittercism = new CrittercismClass();
+Crittercism.httpMonitor()
+

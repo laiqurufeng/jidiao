@@ -279,11 +279,17 @@ localStorage.removeItem(“yarin”);
  ```
 
 
+###远程调试
+<https://developer.chrome.com/devtools/docs/remote-debugging>
+
+
+
 
 
 
  ###错误
- 小米4 VFY log
+
+ #####小米4 VFY log
  ```
  -26 18:07:42.414: V/NBSAgent(14393): webview-->webview :c(WebView paramWebView)
 08-26 18:07:42.424: W/dalvikvm(14393): VFY: unable to find class referenced in signature (Landroid/webkit/ClientCertRequest;)
