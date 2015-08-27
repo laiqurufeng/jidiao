@@ -138,7 +138,7 @@ javascript:!function (_window, other) {
 			}
 		}
 
-		return _apply;
+		return _apply();
 	}
 
 
@@ -252,11 +252,11 @@ javascript:!function (_window, other) {
 
     	var e =fuction(e) {
 
-    		var t = _window[e];   //这里是利用obj[element] =obj.element
+    		var t = _window[e];   //这里是利用obj[ele] =obj.ele
     		_window[e] =function (){
     			var n = _slice.call(arguments),    //arguments.slice() //复制一份arguments. 这应该是新集合.  
     			    e = n[0];                      //e=arguments[0] 取得是函数的第一个参数.
-    			return "function" == typeof e &&(n[0] =obj.wrap(e), t.apply ? t.apply(this,n) :t(n[0],n[1]))
+    			return "function" == typeof e &&(_window[0] =obj.wrap(e), t.apply ? t.apply(this,n) :t(n[0],n[1]))
     		}
     	};
     	e("setTimeout"),

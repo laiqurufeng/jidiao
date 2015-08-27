@@ -1,79 +1,51 @@
 javascript:!function (n, e) {
-    function t(n, e) {   //这个n和e和最上面的n,e无关. 分别是2个不同函数的形参.
-        return Object.prototype.hasOwnProperty.call(n, e)  //n.hasOwnproperty(e)  
+    function t(n, e) {
+        return Object.prototype.hasOwnProperty.call(n, e)
     }
 
-    function r(n) {                   //注意 t函数和r函数,这2个函数内部都能访问到
+    function r(n) {
         return e === n
     }
 
-    var l = {}, 
-    u = n.TraceKit,
-    i = [].slice,   //这个返回的是什么,应该是数组的slice方法
-    c = "?";
+    var l = {}, u = n.TraceKit, i = [].slice, c = "?";
     l.noConflict = function () {
         return n.TraceKit = u, l
-    }, 
-    l.wrap = function (n) {   //找到所有的error.函数掉用通过包裹一层的方式.
+    }, l.wrap = function (n) {
         function e() {
             try {
                 return n.apply(this, arguments)
             } catch (e) {
-                throw l.report(e), e           //report函数并没有参数e呀,这种情况怎么办
+                throw l.report(e), e
             }
         }
 
         return e
-    }, 
-    l.report = function () {  
-         var s,
-          f, 
-          p = [],
-          m = null, 
-          g = null;	
-        function e(n) {      //这个e函数竟然没有调用?
-            a(), p.push(n)           //push()向Array的末尾添加若干元素，pop()则把Array的最后一个元素删除掉：  这里用逗号可以吗
+    }, l.report = function () {
+        function e(n) {
+            a(), p.push(n)
         }
 
-        function r(n) { //删除p数组的n元素
-            for (var e = p.length - 1; e >= 0; --e)  //p数组去除n元素. //&&运算是与运算，只有所有都为true，&&运算结果才是true：
-            	p[e] === n && p.splice(e, 1)          //splice()方法是修改Array的“万能方法”，它可以从指定的索引开始删除若干元素，然后再从该位置添加若干元素：2个参数代表只删除,不添加。
+        function r(n) {
+            for (var e = p.length - 1; e >= 0; --e)p[e] === n && p.splice(e, 1)
         }
 
-        function u(n, e) { //u函数是在c函数调用的
-            var r = null;                                    //arguments 只在函数内部起作用，并且永远指向当前函数的调用者传入的所有参数。arguments类似Array但它不是一个Array：
+        function u(n, e) {
+            var r = null;
             if (!e || l.collectWindowErrors) {
-                for (var u in p)  //for循环的一个变体是for ... in循环，它可以把一个对象的所有属性依次循环出来：
-                if (t(p, u))      //t函数是在最上面定义的.//p.hasOwnproperty(u) 
-                try {                               
-                    p[u].apply(null, [n].concat(i.call(arguments, 2)))   //apply(null),[n],concat()   i应该是最外层的的参数. 即slice()-->arguments.slice(2);
-                                                                         //var arr = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
-                                                                         //slice()就是对应String的substring()版本，它截取Array的部分元素，然后返回一个新的Array：
-                                                                         //arr.slice(0, 3); // 从索引0开始，到索引3结束，但不包括索引3: ['A', 'B', 'C']
-																		 //arr.slice(3); // 从索引3开始到结束: ['D', 'E', 'F', 'G'],包括索引3
-
-																		 //在一个方法内部，this是一个特殊变量，它始终指向当前对象。
-																		 //可以用函数本身的apply方http://pic3.178.com/1503/15033644/month_1412/9257a0c89353dfa4b3a797e943c9d182.jpg法，它接收两个参数，第一个参数就是需要绑定的this变量，第二个参数是Array，表示函数本身的参数。对普通函数调用，我们通常把this绑定为null。
+                for (var u in p)if (t(p, u))try {
+                    p[u].apply(null, [n].concat(i.call(arguments, 2)))
                 } catch (c) {
                     r = c
                 }
-                if (r)
-                	throw r
+                if (r)throw r
             }
         }
 
-        function c(n, e, t) {      //window.onerror = function (message, file, line, col, error) { //n为message,e为file,t为line.
+        function c(n, e, t) {
             var r = null;
-            if (g)
-            	l.computeStackTrace.augmentStackTraceWithInitialElement(g, e, t, n), r = g, g = null, m = null; 
-            else {
-                var i = {
-                	url: e, 
-                	line: t
-                };
-                i.func = l.computeStackTrace.guessFunctionName(i.url, i.line),  //函数名
-                i.context = l.computeStackTrace.gatherContext(i.url, i.line),   //
-                r = {
+            if (g)l.computeStackTrace.augmentStackTraceWithInitialElement(g, e, t, n), r = g, g = null, m = null; else {
+                var i = {url: e, line: t};
+                i.func = l.computeStackTrace.guessFunctionName(i.url, i.line), i.context = l.computeStackTrace.gatherContext(i.url, i.line), r = {
                     mode: "onerror",
                     message: n,
                     url: document.location.href,
@@ -81,13 +53,11 @@ javascript:!function (n, e) {
                     useragent: navigator.userAgent
                 }
             }
-            return u(r, "from window.onerror"), s ? s.apply(this, arguments) : !1   //s是上面声明的变量,a()函数中对其进行了赋值.  //arguments代表的是那个函数的参数?
-            //相当于先用s记录下window.onerror原有的逻辑,在然后window.onerror=自定义函数c,在c中回调原本的window.onerror(用s缓存起来了)逻辑.
+            return u(r, "from window.onerror"), s ? s.apply(this, arguments) : !1
         }
 
-        function a() {  //在function e中调用
-            f !== !0 && (s = n.onerror, n.onerror = c, f = !0)  //n是window, s=window.onerror; n.onerror=c, f=true;  c是一个函数. 
-            //f!=ture的话window.onerror=c函数  ,f=true;f应该是防止重复运行a();
+        function a() {
+            f !== !0 && (s = n.onerror, n.onerror = c, f = !0)
         }
 
         function o(e) {
@@ -103,11 +73,9 @@ javascript:!function (n, e) {
             }, c.incomplete ? 2e3 : 0), e
         }
 
-       
-        return o.subscribe = e, o.unsubscribe = r, o  //这里对e进行了包装.subscribe和ununsubscribe貌似只是2个属性?
-    }(),
-    //report结束
-    l.computeStackTrace = function () {
+        var s, f, p = [], m = null, g = null;
+        return o.subscribe = e, o.unsubscribe = r, o
+    }(), l.computeStackTrace = function () {
         function e(e) {
             if (!l.remoteFetching)return "";
             try {
@@ -333,7 +301,7 @@ javascript:!function (n, e) {
             } catch (r) {
                 if (y)throw r
             }
-            return {mode: "failed"}       //return的是一个对象
+            return {mode: "failed"}
         }
 
         function w(n) {
@@ -345,66 +313,34 @@ javascript:!function (n, e) {
             }
         }
 
-        var y = !1,  //y=false;
-        S = {};      //S为一个对象
+        var y = !1, S = {};
         return k.augmentStackTraceWithInitialElement = x, k.guessFunctionName = i, k.gatherContext = a, k.ofCaller = w, k
-    }(),
-
-    //下面这个函数会运行
-    function () {
-        var e = function (e) {  //xiaohong['name']来访问xiaohong的name属性，不过xiaohong.name的写法更简洁。注意用[]的时候内部要写成字符串
+    }(), function () {
+        var e = function (e) {
             var t = n[e];
-            n[e] = function () {   //这个n是window,一个array?  不是,这是js去对象的变量的一个方法
-                var n = i.call(arguments), //如果不给slice()传递任何参数，它就会从头到尾截取所有元素。利用这一点，我们可以很容易地复制一个Array：
-                 e = n[0]; //n[0]既是传进来的参数
-                return "function" == typeof e && (n[0] = l.wrap(e)), t.apply ? t.apply(this, n) : t(n[0], n[1])  //typeof 123; --> 'number' 和instanceOf不同,这个是个运算符.
-                //随意window[0]是不会报错的.但注意这里的n不是window.
+            n[e] = function () {
+                var n = i.call(arguments), e = n[0];
+                return "function" == typeof e && (n[0] = l.wrap(e)), t.apply ? t.apply(this, n) : t(n[0], n[1])
             }
         };
         e("setTimeout"), e("setInterval")
-    }(), 
-    l.remoteFetching || (l.remoteFetching = !0),
-    l.collectWindowErrors || (l.collectWindowErrors = !0),
-    (!l.linesOfContext || l.linesOfContext < 1) && (l.linesOfContext = 11), 
-    n.TraceKit = l   //n是window. l是TraceKit
+    }(), l.remoteFetching || (l.remoteFetching = !0), l.collectWindowErrors || (l.collectWindowErrors = !0), (!l.linesOfContext || l.linesOfContext < 1) && (l.linesOfContext = 11), n.TraceKit = l
 }(window);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 var Mint = function () {
-	//t函数
     function t(t) {
         return "userAgent"in window.navigator ? -1 == window.navigator.userAgent.indexOf("Android") ? t : "object" == typeof t ? JSON.stringify(t) : void 0 === t || null === t ? "{}" : JSON.stringify({error: "Not a valid argument. Only JSON object allowed."}) : null
     }
-    //n函数,关于抓取Js异常的
+
     var n = function (t, n) {
         var i = t.stack.map(function (t) {
             return t.func + "@" + t.url + ":" + t.line
         }).join("\n");
-        nbsJsBridge.javascriptError(t.message, t.url, t.stack[0].line, i, n)
-    },
-    //i函数对应上面的report 
-    i = window.TraceKit.report, 
-    //e函数. 对应xmlHttpRequest;
-    e = function () {
-        var t = XMLHttpRequest.prototype.open, 
-        n = XMLHttpRequest.prototype.send;
+        mintBridge.javascriptError(t.message, t.url, t.stack[0].line, i, n)
+    }, i = window.TraceKit.report, e = function () {
+        var t = XMLHttpRequest.prototype.open, n = XMLHttpRequest.prototype.send;
         XMLHttpRequest.prototype.open = function (n, i, e, o, r) {
             this._method = n, this._url = i, t.call(this, n, i, e, o, r)
-        }, 
-        XMLHttpRequest.prototype.send = function (t) {
+        }, XMLHttpRequest.prototype.send = function (t) {
             function i() {
                 if (4 == o.readyState) {
                     var t = (new Date).getTime(), n = t - e, i = {
@@ -414,104 +350,53 @@ var Mint = function () {
                         httpStatusCode: o.status.toString(),
                         responseDataSize: o.responseText.length
                     };
-                    nbsJsBridge.logNetwork(i.method, i.url, i.latency, i.httpStatusCode, i.responseDataSize)
+                    mintBridge.logNetwork(i.method, i.url, i.latency, i.httpStatusCode, i.responseDataSize)
                 }
             }
 
             var e, o = this, r = this._method, a = this._url;
             e = (new Date).getTime(), this.addEventListener("readystatechange", i, !1), n.call(this, t)
         }
-    }, 
-    //o 函数,对应loadView.
-    o = function () {
+    }, o = function () {
         {
             var t = window.location.pathname, n = window.location.host;
             window.location.protocol
         }
         setTimeout(function () {
-            var i = window.performance.timing.loadEventEnd - window.performance.timing.navigationStart,
-                e = window.performance.timing.domainLookupEnd - window.performance.timing.domainLookupStart,
-                o = window.performance.timing.domComplete - window.performance.timing.domLoading,
-                r = window.performance.timing.responseEnd - window.performance.timing.responseStart;
-            nbsJsBridge.logView(t, i, e, r, o, n, null)
-            try{
-            var responseTime=window.performance.timing.responseEnd - window.performance.timing.responseStart; //response流读完的时间(ResponseTime)
-			var pageLoadTime = window.performance.timing.loadEventEnd - window.performance.timing.navigationStart;  //从开始页面请求到页面渲染完成的时间，对支持Navigation Timing的浏览器来说，等于loadEventEnd – navigationStart
-			var	resolveDNSTime = window.performance.timing.domainLookupEnd - window.performance.timing.domainLookupStart; //dns解析时间
-			var	connectTime = window.performance.timing.domComplete - window.performance.timing.domLoading; //domloading的时间
-			var sslTime=-1;	 	 //ssltime  = window.performance.timing.安卓机器不支持  //https://developer.mozilla.org/en-US/docs/Web/API/PerformanceTiming/secureConnectionStart
-			var fetchCacheTime = window.performance.timing.responseEnd - window.performance.timing.fetchStart;
-			var firstPacketTime = window.performance.timing.responseStart -window.performance.timing.navigateonStart;
-            var	 loadDomTime  = window.performance.timing.domContentLoadedEventEnd -window.performance.timing.responseStart;
-		    var	 browserRenderTime = window.performance.timing.loadEventEnd - window.performance.timing.domContentLoadedEventEnd;
-			var	 serverQueueingTime=-1;
-			var	 applicationTime=-1;
-			var	 networkTime =-1;
-			var	 frontEndTime =loadDomTime+browserRenderTime;             
-             
-            var jsErrors=0;
-            var httpStatuscode=0; 	
-            var errorCode=0;
-            var appData="";
-            var requestUrl =window.location.href; //完整的url; http://devdocs.io/dom/location
-			var method="GET";  //loadUrl采用的是什么样的访问方式呢?		 
-			nbsJsBridge.logView(requestUrl,method,responseTime,pageLoadTime,resolveDNSTime,connectTime,sslTime,fetchCacheTime,firstPacketTime,loadDomTime,browserRenderTime,serverQueueingTime,applicationTime,networkTime,frontEndTime,jsErrors,httpStatuscode,errorCode,appData);
-            }catch(e){
-            	nbsJsBridge.javascriptError(e.message, e.line, e.lineNumber, e.toString(), e.columnNumber);
-				console.log(e.message+","+e.toString());
-				console.error(e);
-			}
+            var i = window.performance.timing.loadEventEnd - window.performance.timing.navigationStart, e = window.performance.timing.domainLookupEnd - window.performance.timing.domainLookupStart, o = window.performance.timing.domComplete - window.performance.timing.domLoading, r = window.performance.timing.responseEnd - window.performance.timing.responseStart;
+            mintBridge.logView(t, i, e, r, o, n, null)
         }, 0)
     };
-    return e(),
-    //i订阅了
-    i.subscribe(function (t) {  //这里即调动了report的e函数.
+    return e(), i.subscribe(function (t) {
         var i = "stack" === t.mode ? "true" : "false";
-        n(t, i)                  //这里调用了Error的上报逻辑.
-    }), 
-    //window.onload的的函数调用
-    window.onload = o, //onload的时候调用了o函数,也就是调用了logView()        //这里只是return的逗号运算符的其中之一,window.onload和后面这个对象毫无关系.`````````````````````````````````````````````````````````````````````````````
-    {
-        errorLogger: i,   //errorLoagger函数对应的是i函数
-        initAndStartSession: function (t) {
-            nbsJsBridge.initAndStartSession(t)
-        }, 
-        logEvent: function (n, i) {
-            nbsJsBridge.logEvent(n, t(i))
-        }, 
-        leaveBreadcrumb: function (t) {
-            nbsJsBridge.leaveBreadcrumb(t)
-        }, 
-        transactionStart: function (n, i) {
-            nbsJsBridge.transactionStart(n, t(i))
-        }, 
-        transactionStop: function (n, i) {
-            nbsJsBridge.transactionStop(n, t(i))
-        }, 
-        transactionCancel: function (n, i, e) {
-            nbsJsBridge.transactionCancel(n, i, t(e))
-        }, 
-        addExtraData: function (t, n) {
-            nbsJsBridge.addExtraData(t, n)
-        }, 
-        clearExtraData: function () {
-            nbsJsBridge.clearExtraData()
-        }, 
-        flush: function () {
-            return nbsJsBridge.flush()
-        }, 
-        startSession: function () {
-            nbsJsBridge.startSession()
-        }, 
-        closeSession: function () {
-            nbsJsBridge.closeSession()
-        }, 
-        logView: function (n, i) {
-            nbsJsBridge.logView(n, null, null, null, null, null, t(i))
-        }, 
-        setUserIdentifier: function (t) {
-            nbsJsBridge.setUserIdentifier(t)
+        n(t, i)
+    }), window.onload = o, {
+        errorLogger: i, initAndStartSession: function (t) {
+            mintBridge.initAndStartSession(t)
+        }, logEvent: function (n, i) {
+            mintBridge.logEvent(n, t(i))
+        }, leaveBreadcrumb: function (t) {
+            mintBridge.leaveBreadcrumb(t)
+        }, transactionStart: function (n, i) {
+            mintBridge.transactionStart(n, t(i))
+        }, transactionStop: function (n, i) {
+            mintBridge.transactionStop(n, t(i))
+        }, transactionCancel: function (n, i, e) {
+            mintBridge.transactionCancel(n, i, t(e))
+        }, addExtraData: function (t, n) {
+            mintBridge.addExtraData(t, n)
+        }, clearExtraData: function () {
+            mintBridge.clearExtraData()
+        }, flush: function () {
+            return mintBridge.flush()
+        }, startSession: function () {
+            mintBridge.startSession()
+        }, closeSession: function () {
+            mintBridge.closeSession()
+        }, logView: function (n, i) {
+            mintBridge.logView(n, null, null, null, null, null, t(i))
+        }, setUserIdentifier: function (t) {
+            mintBridge.setUserIdentifier(t)
         }
     }
-    //window.onLoad结束
 }();
