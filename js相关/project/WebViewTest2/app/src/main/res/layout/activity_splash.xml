@@ -1,0 +1,35 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".SplashActivity">
+
+    <Button
+        android:id="@+id/bt_nbs"
+        android:onClick="testNBSWebView"
+        android:text="测试nbswebView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <Space
+        android:layout_width="40dp"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/bt_normal"
+        android:layout_below="@+id/bt_nbs"
+        android:onClick="testNormal"
+        android:text="测试普通webView,在Page_Started的时候注入"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <Space
+        android:layout_width="40dp"
+        android:layout_height="wrap_content" />
+    <Button
+        android:layout_below="@+id/bt_normal"
+        android:onClick="testNormal_pagefinish"
+        android:text="测试普通webView,在Page_Finshed的时候注入"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+</RelativeLayout>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <EditText
+        android:text="http://www."
+        android:id="@+id/et_url"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_weight="1"
+            android:id="@+id/bt_url_asset"
+            android:text="本地资源"
+            android:onClick="loadAssetsUrl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:layout_weight="1"
+            android:id="@+id/bt_url_refresh"
+            android:text="clear"
+            android:onClick="clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_weight="1"
+            android:id="@+id/bt_set_http"
+            android:text="sethttp"
+            android:onClick="sethttp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_weight="1"
+            android:onClick="go_forward"
+            android:id="@+id/bt_url"
+            android:text="前往"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <WebView
+        android:visibility="invisible"
+        android:id="@+id/wv_nbs"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </WebView>
+       <!-- <com.networkbench.agent.impl.webview.NBSWebView
+            android:visibility="invisible"
+            android:id="@+id/wv_nbs"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </com.networkbench.agent.impl.webview.NBSWebView>-->
+        <WebView
+            android:visibility="visible"
+            android:id="@+id/wv_normal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </WebView>
+    </FrameLayout>
+
+
+</LinearLayout>

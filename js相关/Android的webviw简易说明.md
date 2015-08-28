@@ -139,7 +139,7 @@ jsErrors :js异常的个数.
 
 
 #嵌码方式(还没决定采用哪一种)
-1.在Main Thread中调用,`	WebviewUtil.instrumentWebView(context, webview);`
+1.在Main Thread中调用,`	NBSWebviewUtil.instrumentWebView(context, webview);`
 context: Context;
 webview:需要监测的webview;  注意:webview不能为空.必须在`findViewById("R.ID.webview")`后使用.
 

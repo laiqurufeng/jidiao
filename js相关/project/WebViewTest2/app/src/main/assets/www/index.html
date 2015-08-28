@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta name="viewport" content="width=320, user-scalable=no" />
+<meta http-equiv="Content-type" content="text/html, charset=utf-8">
+<title>PhoneGap</title>
+<link rel="stylesheet" href="master.css" type="text/css" media="screen"
+	title="no title" charset="utf-8">
+<script type="text/javascript" charset="utf-8" src="phonegap.0.9.4.js"></script>
+<script type="text/javascript" charset="utf-8">
+	var deviceInfo = function() {
+		document.getElementById("platform").innerHTML = device.platform;
+		document.getElementById("version").innerHTML = device.version;
+		document.getElementById("uuid").innerHTML = device.uuid;
+		document.getElementById("name").innerHTML = device.name;
+		document.getElementById("width").innerHTML = screen.width;
+		document.getElementById("height").innerHTML = screen.height;
+		document.getElementById("colorDepth").innerHTML = screen.colorDepth;
+	};
+	// get
+	function init() {
+		document.addEventListener("deviceready", deviceInfo, true);
+	}
+	function get_contacts() {
+		var obj = new ContactFindOptions();
+		obj.filter = "";
+		obj.multiple = true;
+		obj.limit = 5;
+		navigator.service.contacts.find([ "name", "displayName",
+				"phoneNumbers", "emails" ], contacts_success, fail, obj);
+	}
+
+	function crashNow() {
+		try {
+			throw "oops";
+		} catch (e) {
+			console.log(e, e.message, e.stack); //oops undefined undefined
+			//                try {
+			throw new Error(e);
+			//                } catch (e) {
+			//                    console.log(
+			//                            e,       e.message, e.stack);/*
+			//                     Error {} "oops"     "Error: oops
+			//                     at file://localhost/Users/devinrhode2/Desktop/test.html:23:13"
+			//                     */
+			//                }
+		}
+	}
+
+	function fail(fail) {
+		alert(fail);
+	}
+
+	function contacts_success(contacts) {
+		var result = "";
+		for (var i = 0; i < contacts.length; i++) {
+			result += "Name: " + contacts[i].name.givenName + ", displayName: "
+					+ contacts[i].displayName + ", Email:"
+					+ contacts[i].emails[0].value;
+			result += "<br>";
+		}
+		document.getElementById("conlist").innerHTML = result;
+		alert(contacts.length + ' contacts returned.');
+	}
+
+	function doTest() {
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState == 4) {
+				//  alert(xhr.responseText);
+				 document.getElementById("myspan").innerHTML=xhr.responseText;
+				
+				//var ul = xhr.responseXML.documentElement.getElementById("j_search_tab");  //这里的xmlHttpRequest没有responseXML这个变量
+			}
+		}
+		xhr.open('GET', 'http://www.sohu.com', true);
+		xhr.send(null);
+	}
+
+	nbsAgent.debug("nbsagent has run");
+</script>
+
+</head>
+<body onload="init();" id="stage" class="theme">
+	<h1>Welcome to PhoneGap!</h1>
+	
+	<h2>this file is located at assets/index.html</h2>
+	
+	<span id="myspan"></span>
+	<div id="info">
+		<h4>
+			Platform: <span id="platform"> &nbsp;</span>, Version: <span
+				id="version">&nbsp;</span>
+		</h4>
+		<h4>
+			UUID: <span id="uuid"> &nbsp;</span>, Name: <span id="name">&nbsp;</span>
+		</h4>
+		<h4>
+			Width: <span id="width"> &nbsp;</span>, Height: <span id="height">&nbsp;
+			</span>, Color Depth: <span id="colorDepth"></span>
+		</h4>
+	</div>
+	<a href="#" class="btn large" onclick="get_contacts();">Get phone's
+		contacts</a>
+	<a href="#" class="btn large" onclick="crashNow();">Crash Now</a>
+	<a href="#" class="btn large" onclick="doTest();">网络测试</a>
+	<!--<a href="http://w3.ibm.com/w3odw/spg/index_default.html" class="btn large">Access IBM Home Page</a>-->
+	<a href="http://www.sohu.com" class="btn large">Access IBM Home
+		Page</a>
+
+	<form action="http://9.123.151.79:8080/WebTest/index.jsp" method="get">
+		Username: <input type="text" name="name" /> <input type="submit" />
+	</form>
+	<div id="conlist"></div>
+</body>
+</html>
