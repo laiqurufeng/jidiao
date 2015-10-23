@@ -485,4 +485,5 @@ var Mint = function () {
 //            nbsJsBridge.setUserIdentifier(t)
 //        }
 //    }
+//
 }();
