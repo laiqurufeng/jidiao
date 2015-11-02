@@ -1,0 +1,20 @@
+#JEB properties
+#Sat Oct 31 18:30:41 CST 2015
+ui_w_console_ratio=12
+last_run=1446281335
+eula_accepted=true
+code_font=1|Courier New|11.0|0|COCOA|1|CourierNewPSMT
+last_opened4=/Users/apple/android/sdk/build-tools/23.0.1/simple.dex
+last_opened3=/Users/apple/jidiao_work/work_apk/custom_apk/2015.10/aika/app-xcar-release.apk
+last_opened2=/Users/apple/jidiao_work/work_apk/custom_apk/2015.10/aika/unzip/classes-dex2jar.jar
+optdlg_selected_tab=0
+last_opened1=/Users/apple/Downloads/20150826.apk
+last_opened0=/Users/apple/jidiao_work/work_apk/custom_apk/2015.10/jinlan/JinLianChu_debug_1.80.apk
+license_key=8011565733957674953Z11465045749
+shell_height=720
+support_expired=true
+first_run=1445836328
+shell_max=false
+check_update=true
+shell_width=1280
+last_version_run=1.5.201408040
