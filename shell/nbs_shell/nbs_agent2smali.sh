@@ -5,7 +5,7 @@
 AGENT_CD="/Users/apple/Documents/android_studio_workspace/android-agent"
 SMALI_CD="/Users/apple/jidiao_work/work_apk/smali_make"
 ##切换到agent 目录,执行mvn 命令.
-cd $AGENT_CD;mvn clean package;
+cd $AGENT_CD;mvn -f pom-debug.xml clean package;
 ##拷贝 agent.jar到smali_make目录
 cp -f target/nbs.newlens.agent.jar $SMALI_CD/libs
 ##编译apk
