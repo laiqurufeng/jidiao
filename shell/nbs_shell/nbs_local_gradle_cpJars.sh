@@ -1,4 +1,7 @@
 #!/bin/bash
+
+##此脚本用于将 android agent目录下的agent.jar和 class rewriter下面的 rewriter.jar拷贝到 local gradle目录.
+
 AGENT_CD="/Users/apple/Documents/android_studio_workspace/android-agent"
 LocalGradleCD=/Users/apple/work/jar_repo/tingyun_local_gradle/tingyun
 rewriter_CD=/Users/apple/Documents/android_studio_workspace/class-rewriter
