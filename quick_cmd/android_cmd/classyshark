@@ -1,0 +1,7 @@
+if [ "$#" != "1" ];then
+	echo "param not set or param num wrong,param num must be 1"; exit 1
+fi
+
+classyshark=/Users/apple/git_repo/jidiao/quick_cmd/android_cmd/ClassyShark.jar
+
+exec java  -jar $classyshark -open $@

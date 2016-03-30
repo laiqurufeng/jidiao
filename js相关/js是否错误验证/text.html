@@ -4,12 +4,27 @@
 <body>
 	<p>新的测试项目<p>
 	<script type="text/javascript" src="jquery-1.11.3.js"></script>
-	<script src='oneapm_webview.js'>
+	<script src='tingyun2.js'>
 
 	</script>
 	<script type="text/javascript" >
-	alert("aaa");
-	 console.log("js 已经运行");
+	//alert("aaa");
+	console.log("js 已经运行");
+
+	tingyunClass(true);
+	console.log("-------");
+
+	tingyunClass(true,true);
+
+	console.log("-------");
+
+	tingyunClass(true,true,true);
+
+
+    setTimeout(function () {
+    	throw new Error("test")
+    },100);
+
 	</script>
 	
 </body>
